@@ -6,10 +6,11 @@ using System.Threading.Tasks;
 
 namespace CarBook.Domain.Entities
 {
-    public class Feature
+    public class SocialMedia
     {
-        public int FeatureID { get; set; }
+        public int SocialMediaID { get; set; }
         public string Name { get; set; }
-        public List<CarFeature> CarFeatures { get; set; }
+        public string Url { get; set; }
+        public string Icon { get; set; }
     }
 }
