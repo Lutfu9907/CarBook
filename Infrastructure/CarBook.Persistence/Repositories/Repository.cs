@@ -18,29 +18,29 @@ namespace CarBook.Persistence.Repositories
             _context = context;
         }
 
-        public async Task CreateAsync(T entity)
+        public async Task CreateAsync(T entity) // Yeni nesne ekler, değer döndürmez
         {
             _context.Set<T>().Add(entity);
             await _context.SaveChangesAsync();
         }
 
-        public async Task<List<T>> GetAllAsync()
+        public async Task<List<T>> GetAllAsync() // Liste döndürür
         {
             return await _context.Set<T>().ToListAsync();
         }
 
-        public async Task<T> GetByIdAsync(int id)
+        public async Task<T> GetByIdAsync(int id) // Tek nesne döndürür
         {
             return await _context.Set<T>().FindAsync(id);
         }
 
-        public async Task RemoveAsync(T entity)
+        public async Task RemoveAsync(T entity) // Nesne siler, değer döndürmez
         {
             _context.Set<T>().Remove(entity);
             await _context.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(T entity)
+        public async Task UpdateAsync(T entity) // Nesneyi günceller, değer döndürmez
         {
             _context.Set<T>().Update(entity);
             await _context.SaveChangesAsync();
