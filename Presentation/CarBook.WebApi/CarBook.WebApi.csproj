@@ -16,6 +16,8 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\..\CarBook.Domain\CarBook.Domain.csproj" />
+    <ProjectReference Include="..\..\Core\CarBook.Application\CarBook.Application.csproj" />
     <ProjectReference Include="..\..\Infrastructure\CarBook.Persistence\CarBook.Persistence.csproj" />
   </ItemGroup>
 
