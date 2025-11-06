@@ -7,8 +7,6 @@ namespace CarBook.Application.Features.CQRS.Handlers.AboutHandlers
     public class GetAboutQueryHandler
     {
         private readonly IRepository<About> _repository;
-
-        // Fix CS0051: Make IRepository<About> and About public
         public GetAboutQueryHandler(IRepository<About> repository)
         {
             _repository = repository;
