@@ -39,7 +39,7 @@ namespace CarBook.WebApi.Controllers
             return Ok(value);
         }
         [HttpPost]
-        public async Task<IActionResult> AddBanner([FromBody] CreateBannerCommand command)
+        public async Task<IActionResult> CreateBanner(CreateBannerCommand command)
         {
             await _createBannerCommandHandler.Handle(command);
             return Ok("Banner eklendi");
