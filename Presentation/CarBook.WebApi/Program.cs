@@ -1,13 +1,25 @@
 ﻿using CarBook.Application.Features.CQRS.Handlers.AboutHandlers;
 using CarBook.Application.Interfaces;
+using CarBook.Application.Interfaces.CarDescriptionInterfaces;
+using CarBook.Application.Interfaces.CarFeatureInterfaces;
+using CarBook.Application.Interfaces.CarInterfaces;
+using CarBook.Application.Interfaces.CarPricingInterfaces;
 using CarBook.Persistence.Context;
 using CarBook.Persistence.Repositories;
+using CarBook.Persistence.Repositories.CarDescriptionRepositories;
+using CarBook.Persistence.Repositories.CarFeatureRepositories;
+using CarBook.Persistence.Repositories.CarPricingRepositories;
+using CarBook.Persistence.Repositories.CarRepositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 builder.Services.AddScoped<CarBookContext>();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
+builder.Services.AddScoped<ICarRepository, CarRepository>();
+builder.Services.AddScoped<ICarPricingRepository, CarPricingRepository>();
+builder.Services.AddScoped<ICarFeatureRepository, CarFeatureRepository>();
+builder.Services.AddScoped<ICarDescriptionRepository, CarDescriptionRepository>();
 
 // Application katmanındaki tüm CQRS handler'larını (adı "Handler" ile biten sınıflar) tek seferde kaydeder.
 // Yeni bir modül eklendiğinde buraya ayrıca satır eklemek gerekmez.
