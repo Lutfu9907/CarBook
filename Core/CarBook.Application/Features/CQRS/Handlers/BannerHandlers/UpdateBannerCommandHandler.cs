@@ -17,14 +17,17 @@ namespace CarBook.Application.Features.CQRS.Handlers.BannerHandlers
         {
             _repository = repository;
         }
-        public async Task Handle(UpdateBannerCommand command) 
+        public async Task<bool> Handle(UpdateBannerCommand command) 
         { 
             var values = await _repository.GetByIdAsync(command.BannerID);
-            command.Title = command.Title;
-            command.Description = command.Description;
-            command.VideoDescription = command.VideoDescription;
-            command.VideoUrl = command.VideoUrl;
+            if (values == null) return false;
+
+            values.Title = command.Title;
+            values.Description = command.Description;
+            values.VideoDescription = command.VideoDescription;
+            values.VideoUrl = command.VideoUrl;
             await _repository.UpdateAsync(values);
+            return true;
         }
     }
 }
