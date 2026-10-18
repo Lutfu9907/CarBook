@@ -1,6 +1,57 @@
 @CarBook.WebApi_HostAddress = http://localhost:5197
 
-GET {{CarBook.WebApi_HostAddress}}/weatherforecast/
+### Cars with brand names
+GET {{CarBook.WebApi_HostAddress}}/api/Cars
 Accept: application/json
 
-###
+### Five most recently added cars
+GET {{CarBook.WebApi_HostAddress}}/api/Cars/Last?count=5
+Accept: application/json
+
+### Add a car (brandID must exist)
+POST {{CarBook.WebApi_HostAddress}}/api/Cars
+Content-Type: application/json
+
+{
+  "brandID": 1,
+  "model": "Corolla 1.5",
+  "coverImage": "/images/cars/corolla.jpg",
+  "km": 12000,
+  "transmission": "Otomatik",
+  "seat": 5,
+  "luggage": 2,
+  "fuel": "Benzin",
+  "bigImageUrl": "/images/cars/corolla-big.jpg"
+}
+
+### Prices of a car
+GET {{CarBook.WebApi_HostAddress}}/api/CarPricings/ByCar/1
+Accept: application/json
+
+### Features of a car
+GET {{CarBook.WebApi_HostAddress}}/api/CarFeatures/ByCar/1
+Accept: application/json
+
+### Toggle a car feature
+PUT {{CarBook.WebApi_HostAddress}}/api/CarFeatures
+Content-Type: application/json
+
+{
+  "carFeatureID": 1,
+  "available": false
+}
+
+### Locations
+GET {{CarBook.WebApi_HostAddress}}/api/Locations
+Accept: application/json
+
+### Send a contact message
+POST {{CarBook.WebApi_HostAddress}}/api/Contacts
+Content-Type: application/json
+
+{
+  "name": "Ayşe Yılmaz",
+  "email": "ayse@example.com",
+  "subject": "Kiralama",
+  "message": "Hafta sonu için müsait araç var mı?"
+}

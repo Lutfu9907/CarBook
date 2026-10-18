@@ -36,6 +36,7 @@ namespace CarBook.WebApi.Controllers
         public async Task<IActionResult> GetBanner(int id)
         {
             var value = await _getBannerByIdQueryHandler.Handle(new GetBannerByIdQuery(id));
+            if (value == null) return NotFound("Banner bulunamadı");
             return Ok(value);
         }
         [HttpPost]
@@ -47,13 +48,15 @@ namespace CarBook.WebApi.Controllers
         [HttpDelete]
         public async Task<IActionResult> RemoveBanner(int id)
         {
-            await _removeBannerCommandHandler.Handle(new RemoveBannerCommand(id));
+            var removed = await _removeBannerCommandHandler.Handle(new RemoveBannerCommand(id));
+            if (!removed) return NotFound("Banner bulunamadı");
             return Ok("Banner silindi");
         }
         [HttpPut]
         public async Task<IActionResult> UpdateBanner(UpdateBannerCommand command)
         {
-            await _updateBannerCommandHandler.Handle(command);
+            var updated = await _updateBannerCommandHandler.Handle(command);
+            if (!updated) return NotFound("Banner bulunamadı");
             return Ok("Banner güncellendi");
         }
     }

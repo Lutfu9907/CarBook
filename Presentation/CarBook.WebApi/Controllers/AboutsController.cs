@@ -37,6 +37,7 @@ namespace CarBook.WebApi.Controllers
         public async Task<IActionResult> GetAbout(int id)
         {
             var value = await _getAboutByIdQueryHandler.Handle(new GetAboutByIdQuery(id));
+            if (value == null) return NotFound("Hakkımda bilgisi bulunamadı");
             return Ok(value);
         }
 
@@ -50,13 +51,15 @@ namespace CarBook.WebApi.Controllers
         [HttpDelete]
         public async Task<IActionResult> RemoveAbout(int id)
         {
-            await _removeAboutCommandHandler.Handle(new RemoveAboutCommand(id));
+            var removed = await _removeAboutCommandHandler.Handle(new RemoveAboutCommand(id));
+            if (!removed) return NotFound("Hakkımda bilgisi bulunamadı");
             return Ok("Hakkımda bilgisi silindi");
         }
         [HttpPut]
         public async Task<IActionResult> UpdateAbout(UpdateAboutCommand command)
         {
-            await _updateAboutCommandHandler.Handle(command);
+            var updated = await _updateAboutCommandHandler.Handle(command);
+            if (!updated) return NotFound("Hakkımda bilgisi bulunamadı");
             return Ok("Hakkımda bilgisi güncellendi");
         }
     }
