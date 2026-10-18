@@ -16,11 +16,14 @@ namespace CarBook.Application.Features.CQRS.Handlers.BrandHandlers
         {
             _repository = repository;
         }
-        public async Task Handle(UpdateBrandCommand command)
+        public async Task<bool> Handle(UpdateBrandCommand command)
         {
             var values = await _repository.GetByIdAsync(command.BrandID);
+            if (values == null) return false;
+
             values.Name = command.Name;
             await _repository.UpdateAsync(values);
+            return true;
         }
     }
 }

@@ -16,10 +16,14 @@ namespace CarBook.Application.Features.CQRS.Handlers.AboutHandlers
         {
             _repository = repository;
         }
-        public async Task Handle(RemoveAboutCommand command)
+        public async Task<bool> Handle(RemoveAboutCommand command)
         {
             var value = await _repository.GetByIdAsync(command.Id);
+            if (value == null) return false;
+
             await _repository.RemoveAsync(value);
+
+            return true;
         }
     }
 }

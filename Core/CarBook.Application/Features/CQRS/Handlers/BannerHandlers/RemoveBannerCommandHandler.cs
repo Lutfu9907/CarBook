@@ -16,10 +16,14 @@ namespace CarBook.Application.Features.CQRS.Handlers.BannerHandlers
         {
             _repository = repository;
         }
-        public async Task Handle(RemoveBannerCommand command)
+        public async Task<bool> Handle(RemoveBannerCommand command)
         {
             var value = await _repository.GetByIdAsync(command.Id);
+            if (value == null) return false;
+
             await _repository.RemoveAsync(value);
+
+            return true;
         }
     }
 }

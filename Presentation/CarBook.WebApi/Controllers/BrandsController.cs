@@ -38,6 +38,7 @@ namespace CarBook.WebApi.Controllers
         public async Task<IActionResult> GetBrand(int id)
         {
             var value = await _getBrandByIdQueryHandler.Handle(new GetBrandByIdQuery(id));
+            if (value == null) return NotFound("Marka bilgisi bulunamadı");
             return Ok(value);
         }
 
@@ -51,13 +52,15 @@ namespace CarBook.WebApi.Controllers
         [HttpDelete]
         public async Task<IActionResult> RemoveBrand(int id)
         {
-            await _removeBrandCommandHandler.Handle(new RemoveBrandCommand(id));
+            var removed = await _removeBrandCommandHandler.Handle(new RemoveBrandCommand(id));
+            if (!removed) return NotFound("Marka bilgisi bulunamadı");
             return Ok("Marka bilgisi silindi");
         }
         [HttpPut]
         public async Task<IActionResult> UpdateBrand(UpdateBrandCommand command)
         {
-            await _updateBrandCommandHandler.Handle(command);
+            var updated = await _updateBrandCommandHandler.Handle(command);
+            if (!updated) return NotFound("Marka bilgisi bulunamadı");
             return Ok("Marka bilgisi güncellendi");
         }
     }
